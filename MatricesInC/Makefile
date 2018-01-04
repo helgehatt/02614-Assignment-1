@@ -1,6 +1,6 @@
 
-SRCS 	= *.cpp
-OBJS	= $(SRCS:.c=.o)
+SRCS 	= matmult.cpp
+OBJS	= matmult.o
 TARGET	= MatricesInC.$(CC)
 
 CC		= g++
