@@ -27,9 +27,7 @@ void matmult_nat(int m,int n,int k,double **A,double **B,double **C)
 {
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_i_TO_m
         FOR_j_TO_n
@@ -46,9 +44,7 @@ void matmult_mkn(int m,int n,int k,double **A,double **B,double **C)
 {
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_i_TO_m
         FOR_l_TO_k
@@ -65,9 +61,7 @@ void matmult_kmn(int m,int n,int k,double **A,double **B,double **C)
 {    
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_l_TO_k
         FOR_i_TO_m
@@ -78,9 +72,7 @@ void matmult_knm(int m,int n,int k,double **A,double **B,double **C)
 {
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_l_TO_k
         FOR_j_TO_n
@@ -92,9 +84,7 @@ void matmult_nmk(int m,int n,int k,double **A,double **B,double **C)
 {
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_j_TO_n
         FOR_i_TO_m
@@ -106,9 +96,7 @@ void matmult_nkm(int m,int n,int k,double **A,double **B,double **C)
 {
     int i, j, l;
     
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     FOR_j_TO_n
         FOR_l_TO_k
@@ -120,15 +108,13 @@ void matmult_blk(int m,int n,int k,double **A,double **B,double **C, int bs)
 {
     int I, J, L, i, j, l, sum;
 
-    FOR_i_TO_m
-        FOR_j_TO_n
-            C[i][j] = 0;
+    RESET_C
 
     for (I = 0; I < m; I+=bs)
-        for (J = 0; J < n; J+=bs)
-            for (L = 0; L < k; L+=bs)
+        for (L = 0; L < k; L+=bs)
+            for (J = 0; J < n; J+=bs)
                 for (i = I; i < MIN(I+bs,m); i++)
-                    for (j = J; j < MIN(J+bs,n); j++)
-                        for (l = L; l < MIN(L+bs,k); l++)
+                    for (l = L; l < MIN(L+bs,k); l++)
+                        for (j = J; j < MIN(J+bs,n); j++)
                             C[i][j] += A[i][l] * B[l][j];
 }
