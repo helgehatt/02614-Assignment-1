@@ -1,15 +1,15 @@
 TARGET	= libmatmult.so
-LIBSRCS	= 
-LIBOBJS	= 
+LIBSRCS	= matmult.cpp
+LIBOBJS	= matmult.o
 
-OPT	= -g 
+OPT	= -g
 PIC	= -fPIC
 
-CXX	= sunCC
+CXX	= g++
 CXXFLAGS= $(OPT) $(PIC) $(XOPTS)
 
 SOFLAGS = -shared 
-XLIBS	= 
+XLIBS	= -L /usr/lib64/atlas -lsatlas
 
 $(TARGET): $(LIBOBJS)
 	$(CXX) -o $@ $(SOFLAGS) $(LIBOBJS) $(XLIBS)
