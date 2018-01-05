@@ -106,15 +106,26 @@ void matmult_nkm(int m,int n,int k,double **A,double **B,double **C)
 
 void matmult_blk(int m,int n,int k,double **A,double **B,double **C, int bs)
 {
-    int I, J, L, i, j, l, sum;
+    int I, J, L, i, j, l, sum, limi, limj, liml;
 
     RESET_C
 
     for (I = 0; I < m; I+=bs)
-        for (L = 0; L < k; L+=bs)
-            for (J = 0; J < n; J+=bs)
-                for (i = I; i < MIN(I+bs,m); i++)
-                    for (l = L; l < MIN(L+bs,k); l++)
-                        for (j = J; j < MIN(J+bs,n); j++)
+	{
+	limi = MIN(I+bs,m);
+        for (i = I; i < limi; i++)
+            for (L = 0; L < k; L+=bs)
+	    	{
+	   	liml = MIN(L+bs,k);
+            	for (l = L; l < liml; l++)
+            	    for (J = 0; J < n; J+=bs)
+			{
+			limj = MIN(J+bs,n);
+                	for (j = J; j < limj; j++)
                             C[i][j] += A[i][l] * B[l][j];
+			};
+	     	};
+		
+	};
 }
+
