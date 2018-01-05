@@ -13,8 +13,6 @@ void matmult_nmk(int m,int n,int k,double **A,double **B,double **C);
 void matmult_nkm(int m,int n,int k,double **A,double **B,double **C);
 
 void matmult_blk(int m,int n,int k,double **A,double **B,double **C, int bs);
-
-void matmult_res(int m,int n,int k,restrict double **A,restrict double **B,restrict double **C);
 }
 
 #define FOR_i_TO_m for (i = 0; i < m; i++)
@@ -129,16 +127,4 @@ void matmult_blk(int m,int n,int k,double **A,double **B,double **C, int bs)
 	     	};
 		
 	};
-}
-
-void matmult_res(int m,int n,int k,restrict double **A,restrict double **B,restrict double **C)
-{
-    int i, j, l;
-    
-    RESET_C
-
-    FOR_i_TO_m
-        FOR_l_TO_k
-            FOR_j_TO_n
-                C[i][j] += A[i][l] * B[l][j];
 }
